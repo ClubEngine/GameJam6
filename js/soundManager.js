@@ -267,9 +267,15 @@ SoundManager = {
 		{
 			id: "RNo6",
 			src: "no/reverse/no_english_6.ogg"
-		}
-	
-
+		},
+		{	
+			id: "Ball",
+			src: "samples/ball.ogg"	
+		},
+		{
+			id: "Depop",
+			src: "samples/depop.ogg"
+		};
 		];
 	
 		createjs.Sound.registerManifest(manifest, audioPath);
