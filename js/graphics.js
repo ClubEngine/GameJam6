@@ -112,24 +112,30 @@ var MapGraphic = function (labyrinth) {
 }
 
 MapGraphic.prototype = {
-	print: function() {
-		// Parcours de la matrice et affichage d'un 
-		// carré de couleur différente pour chaque nombre
-		for (y = 0; y < this.labyrinth.getHeight(); y++ ) {
-			for (x = 0; x < this.labyrinth.getWidth(); x++ ) {
-				var type = parseInt(this.labyrinth.get(x, y));
-				if (type == CaseCode.WALL) {
-					screen.drawWall(32*x,32*y);
-				}	
-				else if (type == CaseCode.GROUND) {
-					screen.drawFloor(32*x,32*y);
-				}	
-				else if (type == CaseCode.UNDEFINED) {
-					screen.printRect(32*x,32*y,32,32, "rgba(255,0,0,1)");
-				}	
-			}		
+    print: function(origin_x, origin_y, visionScope) {
+	// Parcours de la matrice et affichage d'un 
+	// carré de couleur différente pour chaque nombre
+	for (y = 0; y < this.labyrinth.getHeight(); y++ ) {
+	    for (x = 0; x < this.labyrinth.getWidth(); x++ ) {
+		var type = parseInt(this.labyrinth.get(x, y));
+		if (!this.is_visible(origin_x, origin_y, visionScope, x, y) || type == CaseCode.UNDEFINED) {
+		    screen.printRect(32*x,32*y,32,32, "rgba(255,0,0,1)");
 		}
+		else if (type == CaseCode.WALL) {
+		    screen.drawWall(32*x,32*y);
+		}	
+		else if (type == CaseCode.GROUND) {
+		    screen.drawFloor(32*x,32*y);
+		}	
+	    }		
 	}
+    },
+    
+    is_visible: function (origin_x, origin_y, visionScope, x, y) {
+	var diff_x = x - origin_x;
+	var diff_y = y - origin_y;
+	return (diff_x < visionScope && diff_y < visionScope && diff_x > -visionScope && diff_y > -visionScope);
+    }
 }
 
 var EntityGraphic = function (entity) {
@@ -180,11 +186,11 @@ Graphics.prototype = {
 	},
 	
 	refreshAll: function(entities) {
-		this.mapGraphic.print();
+	    this.mapGraphic.print(0,0,1024);
 		for (var i in entities) {
 			var entity = entities[i];
 			var entityGraphic = new EntityGraphic(entity);
-			entityGraphic.print();
+		    entityGraphic.print();
 		}
 	}
 }
