@@ -10,6 +10,14 @@ $(document).ready(function () {
 //	SoundManager.play('Wurst');
 });
 
+function playBall()
+{
+	SoundManager.play("Ball");
+}
+function playDepop()
+{
+	SoundManager.play("Depop");
+}
 function playNorth()
 {
 	i=Math.floor((Math.random()*100)%7)+1;
