@@ -109,7 +109,6 @@ MapGraphic.prototype = {
 			
 			  else if (type == CaseCode.ARENA) {
 				screen.drawArena(32*x,32*y);
-				console.log('bonjour')
 			}	
 		}		
 	}
