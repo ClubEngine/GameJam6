@@ -13,24 +13,24 @@ var Screen = function(callback) {
 
 	var spritesImg = {
 		// Players
-		'player1UP': 'assets/amg1_bk1.png',
-		'player1DOWN': 'assets/amg1_fr1.png',
-		'player1LEFT': 'assets/amg1_lf1.png',
-		'player1RIGHT': 'assets/amg1_rt1.png',
-		'player2UP': 'assets/npc5_bk1.png',
-		'player2DOWN': 'assets/npc5_fr1.png',
-		'player2LEFT': 'assets/npc5_lf1.png',
-		'player2RIGHT': 'assets/npc5_rt1.png',
+		'player13': 'assets/amg1_bk1.png',
+		'player14': 'assets/amg1_fr1.png',
+		'player12': 'assets/amg1_lf1.png',
+		'player11': 'assets/amg1_rt1.png',
+		'player23': 'assets/npc5_bk1.png',
+		'player24': 'assets/npc5_fr1.png',
+		'player22': 'assets/npc5_lf1.png',
+		'player21': 'assets/npc5_rt1.png',
 
 		// Monsters
-		'monster1UP': 'assets/scr1_bk1.png',
-		'monster1DOWN': 'assets/scr1_fr1.png',
-		'monster1LEFT': 'assets/scr1_lf1.png',
-		'monster1RIGHT': 'assets/scr1_rt1.png',
-		'monster2UP': 'assets/wmg1_bk1.png',
-		'monster2DOWN': 'assets/wmg1_fr1.png',
-		'monster2LEFT': 'assets/wmg1_lf1.png',
-		'monster2RIGHT': 'assets/wmg1_rt1.png',
+		'monster13': 'assets/scr1_bk1.png',
+		'monster14': 'assets/scr1_fr1.png',
+		'monster12': 'assets/scr1_lf1.png',
+		'monster11': 'assets/scr1_rt1.png',
+		'monster23': 'assets/wmg1_bk1.png',
+		'monster24': 'assets/wmg1_fr1.png',
+		'monster22': 'assets/wmg1_lf1.png',
+		'monster21': 'assets/wmg1_rt1.png',
 
 		// Elements
 		'fire': 'assets/conjure_ball_lightning.png',
@@ -72,15 +72,15 @@ Screen.prototype = {
 		this.context.drawImage(this.sprites['floor'], x, y);
 	},
 	drawPlayer: function (iPlayer, x, y, direction) {
-		console.log(direction);
+		direction = direction || 1;
 		this.playersMapCxt.drawImage(this.sprites['player' + iPlayer + direction.toString()], x, y);
 	},
 	drawMonster: function (iMonster, x, y, direction) {
-		console.log(direction);
+		direction = direction || 1;
 		this.playersMapCxt.drawImage(this.sprites['monster' + iMonster + direction.toString()], x, y);
 	},
 	drawFire: function(x, y) {
-		this.context.drawImage(this.sprites['fire'], x, y);
+		this.playersMapCxt.drawImage(this.sprites['fire'], x, y);
 	}
 }
   
@@ -147,7 +147,7 @@ Graphics.prototype = {
 			} else if (spriteId == SpriteCode.MONSTER2) {
 				screen.drawMonster(2, 32*pos.x,32*pos.y, entity.getDirection());
 			} else if (spriteId == SpriteCode.FIRE_BALL) {
-				screen.drawFire(32*pos.x, 32*pos.y, entity.getDirection());
+				screen.drawFire(32*pos.x, 32*pos.y);
 			}
 
 		}

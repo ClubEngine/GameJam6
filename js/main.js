@@ -15,6 +15,7 @@ $(document).ready(function () {
 	player.setSpriteId(1);
 	player.setPosition(1, 0);
 	var push_date = Date.now();
+	var ball_date = Date.now();
 	var action = function() { this.state = Action.IDLE; };
 	
 	var entities = new Array();
@@ -29,18 +30,47 @@ $(document).ready(function () {
 		graphics.mapGraphic.print(0, 0, 1024);
 		kd.run(function () {
 			kd.tick();
-			
+
 		// prevent player to move super quickly	
 		if (action.state != Action.IDLE) {	
 			if (Date.now() > push_date + 150) {
 				push_date = Date.now();
 				
 				doMovement(player, lab, action.state);
+				
+				if (action.state >= Action.FIRE_U && action.state <= Action.FIRE_L) {
+					ball = new Actor();
+					ball.setPosition(player.getPosition().x, player.getPosition().y);
+					ball.setSpriteId(SpriteCode.FIRE_BALL);
+					ball.setDirection(action.state);
+					entities.push(ball);
+				}
+
 			}
 		}
 
+		if (Date.now() > ball_date + 100) {
+			ball_date = Date.now();
+			
+			newEntities = new Array();	
+			for (var i in entities) {
+				if(entities[i].getSpriteId() == SpriteCode.FIRE_BALL){
+					var ball = entities[i];
+					toRm = doMovementFireBall(ball, lab, ball.getDirection());
+					
+					if (!toRm) {
+						newEntities.push(ball);
+					}
+					
+				} else {
+					newEntities.push(entities[i]);
+				}
+			}
+			entities = newEntities;
+		}
+		
 		graphics.refreshAll(entities);
-	});	
+		});	
 	}
 });
 
