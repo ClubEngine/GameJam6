@@ -23,6 +23,10 @@ function doMovement(actor, laby, action)
 			break;
 	}
 
+	if (action != Action.IDLE) {
+		actor.setDirection(action);
+	}
+
 	// test if the new position is not an bstacle
 	if (! laby.isObstacle(nextPos.x, nextPos.y))
 	{
