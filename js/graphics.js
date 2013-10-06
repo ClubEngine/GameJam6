@@ -128,6 +128,7 @@ Graphics.prototype = {
 			this.mapGraphic = new MapGraphic(labyrinth);
 		}
 		this.mapGraphic.print();
+		this.mapGraphic.print(0, 0, 1024);
 	},
 	
 	refreshAll: function(entities) {
