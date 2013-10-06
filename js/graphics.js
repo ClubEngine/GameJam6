@@ -16,6 +16,15 @@ Graphics.prototype = {
 		}
 		this.mapGraphic.print();
 	},
+	
+	refreshAll: function(entities) {
+		this.mapGraphic.print();
+		for (var i in entities) {
+			var entity = entities[i];
+			var entityGraphic = new EntityGraphic(entity);
+			entityGraphic.print();
+		}
+	}
 }
 
 var Screen = function() {
@@ -47,6 +56,18 @@ Screen.prototype = {
 	drawFloor: function(x, y) {
 		this.draw(x,y, "assets/crystal_floor3.png");
 	}	
+	drawPlayer1: function(x, y) {
+		this.draw(x,y, "assets/Player1.png");
+	},
+	drawPlayer2: function(x, y) {
+		this.draw(x,y, "assets/Player2.png");
+	},
+	drawMonster1: function(x, y) {
+		this.draw(x,y, "assets/Monster1.png");
+	},
+	drawMonster2: function(x, y) {
+		this.draw(x,y, "assets/Monster2.png");
+	},
 
 }
 var screen = new Screen();
@@ -77,6 +98,29 @@ MapGraphic.prototype = {
 			}		
 		}
 	}
+}
+
+var EntityGraphic = function (entity) {
+	this.entity = entity;
+}
+
+EntityGraphic.prototype = {
+	print: function () {
+		var pos = this.entity.getPosition();
+		var spriteId = this.entity.getSpriteId();
+		if (spriteId == PLAYER1) {
+			screen.drawPlayer1(32*pos.X,32*pos.Y);
+		}
+		else if (spriteId == PLAYER2) {
+			screen.drawPlayer2(32*pos.X,32*pos.Y);
+		}		
+		else if (spriteId == MONSTER1) {
+			screen.drawMonster1(32*pos.X,32*pos.Y);
+		}
+		else if (spriteId == MONSTER2) {
+			screen.drawMonster2(32*pos.X,32*pos.Y);
+		}
+	},
 }
 
 var graphics = new Graphics();
