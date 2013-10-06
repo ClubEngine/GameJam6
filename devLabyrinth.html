@@ -18,7 +18,16 @@
 
     <body>
     </body>
-	
+
+	<p id="test">5
+	6
+	11111
+	11112
+	11122
+	11222
+	12222
+	22222
+	</p>	
 	<script>
 		function p(x) { document.write(x); }
 		function nl(x) {  p("</br>"); }
@@ -33,11 +42,8 @@
 		}
 
 	
-			var lab = new Labyrinth(10,10);
-			lab.set(1,1,1);
-			lab.set(1,5,2);
-		
-			displayLab(lab);
+		var lab=labyrinthFactory("test");	
+		displayLab(lab);
 
 	</script>
 </html>
