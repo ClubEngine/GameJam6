@@ -1,32 +1,4 @@
 
-var Graphics = function (name) {
-	// constructor
-
-	// set attribute
-	this.mapGraphic = null;
-
-}
-
-Graphics.prototype = {
-	setLabyrinth: function (labyrinth) {
-		if (this.mapGraphic) {
-			this.mapGraphic.setMatrix(labyrinth);
-		} else {
-			this.mapGraphic = new MapGraphic(labyrinth);
-		}
-		this.mapGraphic.print();
-	},
-	
-	refreshAll: function(entities) {
-		this.mapGraphic.print();
-		for (var i in entities) {
-			var entity = entities[i];
-			var entityGraphic = new EntityGraphic(entity);
-			entityGraphic.print();
-		}
-	}
-}
-
 var Screen = function() {
 	this.map = document.getElementById('map');
 	this.width = this.map.width;
@@ -55,7 +27,7 @@ Screen.prototype = {
 	},
 	drawFloor: function(x, y) {
 		this.draw(x,y, "assets/crystal_floor3.png");
-	}	
+	},	
 	drawPlayer1: function(x, y) {
 		this.draw(x,y, "assets/Player1.png");
 	},
@@ -73,8 +45,6 @@ Screen.prototype = {
 var screen = new Screen();
 screen.printRect(0, 0, screen.width, screen.height, "rgba(255, 255, 255, 0.5)");
   
-
-
 var MapGraphic = function (labyrinth) {
 	this.labyrinth = labyrinth
 }
@@ -100,6 +70,36 @@ MapGraphic.prototype = {
 	}
 }
 
+var Graphics = function (name) {
+	// constructor
+
+	// set attribute
+	this.mapGraphic = null;
+
+}
+
+Graphics.prototype = {
+	setLabyrinth: function (labyrinth) {
+		if (this.mapGraphic) {
+			this.mapGraphic.setMatrix(labyrinth);
+		} else {
+			this.mapGraphic = new MapGraphic(labyrinth);
+		}
+		this.mapGraphic.print();
+	},
+	
+	refreshAll: function(entities) {
+		this.mapGraphic.print();
+		for (var i in entities) {
+			var entity = entities[i];
+			var entityGraphic = new EntityGraphic(entity);
+			entityGraphic.print();
+		}
+	}
+}
+
+
+
 var EntityGraphic = function (entity) {
 	this.entity = entity;
 }
@@ -108,8 +108,8 @@ EntityGraphic.prototype = {
 	print: function () {
 		var pos = this.entity.getPosition();
 		var spriteId = this.entity.getSpriteId();
-		if (spriteId == PLAYER1) {
-			screen.drawPlayer1(32*pos.X,32*pos.Y);
+		if (spriteId == SpriteCode.PLAYER1) {
+			screen.drawPlayer1(32*pos.x,32*pos.y);
 		}
 		else if (spriteId == PLAYER2) {
 			screen.drawPlayer2(32*pos.X,32*pos.Y);
@@ -123,6 +123,3 @@ EntityGraphic.prototype = {
 	},
 }
 
-var graphics = new Graphics();
-var labychou = labyrinthFactory("test");
-graphics.setLabyrinth(labychou);
