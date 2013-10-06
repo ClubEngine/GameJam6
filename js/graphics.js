@@ -5,6 +5,7 @@ var Screen = function() {
 	this.height = this.map.height;
   	this.context = this.map.getContext('2d');
 }
+var screen;
 
 Screen.prototype = {
 	// x1, y1, x2, y2 : chiffres
@@ -28,7 +29,7 @@ Screen.prototype = {
 	drawFloor: function(x, y) {
 		this.draw(x,y, "assets/crystal_floor3.png");
 	},	
-	drawPlayer1: function(x, y) {
+	drawPlayer1: function(x, y) { 
 		this.draw(x,y, "assets/Player1.png");
 	},
 	drawPlayer2: function(x, y) {
@@ -42,8 +43,6 @@ Screen.prototype = {
 	},
 
 }
-var screen = new Screen();
-screen.printRect(0, 0, screen.width, screen.height, "rgba(255, 255, 255, 0.5)");
   
 var MapGraphic = function (labyrinth) {
 	this.labyrinth = labyrinth
@@ -76,12 +75,37 @@ MapGraphic.prototype = {
     }
 }
 
+var EntityGraphic = function (entity) {
+	this.entity = entity;
+}
+
+EntityGraphic.prototype = {
+	print: function () {
+		var pos = this.entity.getPosition();
+		var spriteId = this.entity.getSpriteId();
+		if (spriteId == SpriteCode.PLAYER1) {
+			screen.drawPlayer1(32*pos.x,32*pos.y);
+		}
+		else if (spriteId == PLAYER2) {
+			screen.drawPlayer2(32*pos.X,32*pos.Y);
+		}		
+		else if (spriteId == MONSTER1) {
+			screen.drawMonster1(32*pos.X,32*pos.Y);
+		}
+		else if (spriteId == MONSTER2) {
+			screen.drawMonster2(32*pos.X,32*pos.Y);
+		}
+	},
+}
+
 var Graphics = function (name) {
 	// constructor
 
 	// set attribute
 	this.mapGraphic = null;
 
+	screen = new Screen();
+	screen.printRect(0, 0, screen.width, screen.height, "rgba(255, 255, 255, 0.5)");
 }
 
 Graphics.prototype = {
@@ -106,26 +130,4 @@ Graphics.prototype = {
 
 
 
-var EntityGraphic = function (entity) {
-	this.entity = entity;
-}
-
-EntityGraphic.prototype = {
-	print: function () {
-		var pos = this.entity.getPosition();
-		var spriteId = this.entity.getSpriteId();
-		if (spriteId == SpriteCode.PLAYER1) {
-			screen.drawPlayer1(32*pos.x,32*pos.y);
-		}
-		else if (spriteId == PLAYER2) {
-			screen.drawPlayer2(32*pos.X,32*pos.Y);
-		}		
-		else if (spriteId == MONSTER1) {
-			screen.drawMonster1(32*pos.X,32*pos.Y);
-		}
-		else if (spriteId == MONSTER2) {
-			screen.drawMonster2(32*pos.X,32*pos.Y);
-		}
-	},
-}
 
