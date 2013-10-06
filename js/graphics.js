@@ -1,9 +1,60 @@
 
-var Screen = function() {
+var Screen = function(callback) {
 	this.map = document.getElementById('map');
+  	this.context = this.map.getContext('2d');
+
+	this.playersMap = document.getElementById('playersMap');
+  	this.playersMapCxt = this.playersMap.getContext('2d');
+
 	this.width = this.map.width;
 	this.height = this.map.height;
-  	this.context = this.map.getContext('2d');
+
+	var nbSpritesLoading = 0, nbSpritesLoaded = 0;
+
+	var spritesImg = {
+		// Players
+		'player13': 'assets/amg1_bk1.png',
+		'player14': 'assets/amg1_fr1.png',
+		'player12': 'assets/amg1_lf1.png',
+		'player11': 'assets/amg1_rt1.png',
+		'player23': 'assets/npc5_bk1.png',
+		'player24': 'assets/npc5_fr1.png',
+		'player22': 'assets/npc5_lf1.png',
+		'player21': 'assets/npc5_rt1.png',
+
+		// Monsters
+		'monster13': 'assets/scr1_bk1.png',
+		'monster14': 'assets/scr1_fr1.png',
+		'monster12': 'assets/scr1_lf1.png',
+		'monster11': 'assets/scr1_rt1.png',
+		'monster23': 'assets/wmg1_bk1.png',
+		'monster24': 'assets/wmg1_fr1.png',
+		'monster22': 'assets/wmg1_lf1.png',
+		'monster21': 'assets/wmg1_rt1.png',
+
+		// Elements
+		'fire': 'assets/conjure_ball_lightning.png',
+
+		// Labyrinth
+		'wall': 'assets/stone_brick12.png',
+		'floor': 'assets/crystal_floor3.png'
+	}
+
+	this.sprites = [];
+	for (var spriteName in spritesImg) {
+		nbSpritesLoading++;
+		var sprite = new Image();
+		sprite.onload = function () {
+			nbSpritesLoaded++;
+
+			if (nbSpritesLoaded === nbSpritesLoading) {
+				nbSpritesLoaded = -Infinity;
+				callback();
+			}
+		}
+		sprite.src = spritesImg[spriteName];
+		this.sprites[spriteName] = sprite;
+	}
 }
 var screen;
 
@@ -14,97 +65,23 @@ Screen.prototype = {
   		this.context.fillStyle = color;
   		this.context.fillRect(x1, y1, w, h);
 	},
-
-	draw: function(x,y,src) {
-    		var img = new Image();
-    		img.src = src;
-		var _this = this;
-    		img.onload = function(){
-      			_this.context.drawImage(img, x, y);
-		}
-	},
 	drawWall: function(x, y) {
-		this.draw(x,y, "assets/stone_brick12.png");
+		this.context.drawImage(this.sprites['wall'], x, y);
 	},
 	drawFloor: function(x, y) {
-		this.draw(x,y, "assets/crystal_floor3.png");
-	},	
-	drawPlayer1: function(x, y, direct) { 
-		if (direct == Action.UP) {
-					
-		this.draw(x,y, "assets/amg1_bk1.gif");
-		} 
-		else if ( direct == Action.DOWN) {
-				
-		this.draw(x,y, "assets/amg1_fr1.gif");
-		}
-		else if ( direct == Action.LEFT) {
-				
-		this.draw(x,y, "assets/amg1_lf1.gif");
-		} 
-		else if ( direct == Action.RIGHT) {
-				
-		this.draw(x,y, "assets/amg1_rt1.gif");
-		}
+		this.context.drawImage(this.sprites['floor'], x, y);
 	},
-	drawPlayer2: function(x, y, direct) {
-		if (direct == Action.UP) {
-					
-		this.draw(x,y, "assets/npc5_bk1.gif");
-		} 
-		else if ( direct == Action.DOWN) {
-				
-		this.draw(x,y, "assets/npc5_fr1.gif");
-		} 
-		else if ( direct == Action.LEFT) {
-				
-		this.draw(x,y, "assets/npc5_lf1.gif");
-		} 
-		else if ( direct == Action.RIGHT) {
-				
-		this.draw(x,y, "assets/npc5_rt1.gif");
-		}
+	drawPlayer: function (iPlayer, x, y, direction) {
+		direction = direction || 1;
+		this.playersMapCxt.drawImage(this.sprites['player' + iPlayer + direction.toString()], x, y);
 	},
-	drawMonster1: function(x, y, direct) {
-		if (direct == Action.UP) {
-					
-		this.draw(x,y, "assets/scr1_bk1.gif");
-		} 
-		else if ( direct == Action.DOWN) {
-				
-		this.draw(x,y, "assets/scr1_fr1.gif");
-		} 
-			
-		else if ( direct == Action.LEFT) {
-				
-		this.draw(x,y, "assets/scr1_lf1.gif");
-		} 
-		else if ( direct == Action.RIGHT) {
-				
-		this.draw(x,y, "assets/scr1_rt1.gif");
-		}
-	},
-	drawMonster2: function(x, y, direct) {
-		if (direct == Action.UP) {	
-		this.draw(x,y, "assets/wmg1_bk1.gif");
-		} 
-		else if ( direct == Action.DOWN) {
-				
-		this.draw(x,y, "assets/wmg1_fr1.gif");
-		} 
-		else if ( direct == Action.LEFT) {
-				
-		this.draw(x,y, "assets/wmg1_lf1.gif");
-		} 
-		else if ( direct == Action.RIGHT) {
-				
-		this.draw(x,y, "assets/wmg1_rt1.gif");
-		}
+	drawMonster: function (iMonster, x, y, direction) {
+		direction = direction || 1;
+		this.playersMapCxt.drawImage(this.sprites['monster' + iMonster + direction.toString()], x, y);
 	},
 	drawFire: function(x, y) {
-		this.draw(x,y, "assets/conjure_ball_lightning.png");
-	},
-
+		this.playersMapCxt.drawImage(this.sprites['fire'], x, y);
+	}
 }
   
 var MapGraphic = function (labyrinth) {
@@ -112,66 +89,34 @@ var MapGraphic = function (labyrinth) {
 }
 
 MapGraphic.prototype = {
-    print: function(origin_x, origin_y, visionScope) {
+    print: function (origin_x, origin_y, visionScope) {
 	// Parcours de la matrice et affichage d'un 
 	// carré de couleur différente pour chaque nombre
 	for (y = 0; y < this.labyrinth.getHeight(); y++ ) {
-	    for (x = 0; x < this.labyrinth.getWidth(); x++ ) {
-		var type = parseInt(this.labyrinth.get(x, y));
-		if (!this.is_visible(origin_x, origin_y, visionScope, x, y) || type == CaseCode.UNDEFINED) {
-		    screen.printRect(32*x,32*y,32,32, "rgba(255,0,0,1)");
-		}
-		else if (type == CaseCode.WALL) {
-		    screen.drawWall(32*x,32*y);
-		}	
-		else if (type == CaseCode.GROUND) {
-		    screen.drawFloor(32*x,32*y);
-		}	
-	    }		
+		for (x = 0; x < this.labyrinth.getWidth(); x++ ) {
+			var type = parseInt(this.labyrinth.get(x, y));
+			if (!this.is_visible(origin_x, origin_y, visionScope, x, y) || type == CaseCode.UNDEFINED) {
+				screen.printRect(32*x,32*y,32,32, "rgba(255,0,0,1)");
+			} else if (type == CaseCode.WALL) {
+				screen.drawWall(32*x,32*y);
+			} else if (type == CaseCode.GROUND) {
+				screen.drawFloor(32*x,32*y);
+			}	
+		}		
 	}
-    },
+	},
     
     is_visible: function (origin_x, origin_y, visionScope, x, y) {
-	var diff_x = x - origin_x;
-	var diff_y = y - origin_y;
-	return (diff_x < visionScope && diff_y < visionScope && diff_x > -visionScope && diff_y > -visionScope);
+    	var diff_x = x - origin_x;
+    	var diff_y = y - origin_y;
+    	return (diff_x < visionScope && diff_y < visionScope && diff_x > -visionScope && diff_y > -visionScope);
     }
 }
 
-var EntityGraphic = function (entity) {
-	this.entity = entity;
-}
-
-EntityGraphic.prototype = {
-	print: function () {
-		var pos = this.entity.getPosition();
-		var spriteId = this.entity.getSpriteId();
-		var direct = this.entity.getDirection();
-		if (spriteId == SpriteCode.PLAYER1) {
-			screen.drawPlayer1(32*pos.x,32*pos.y, direct);
-		}
-		else if (spriteId == SpriteCode.PLAYER2) {
-			screen.drawPlayer2(32*pos.x,32*pos.y, direct);
-		}		
-		else if (spriteId == SpriteCode.MONSTER1) {
-			screen.drawMonster1(32*pos.x,32*pos.y, direct);
-		}
-		else if (spriteId == SpriteCode.MONSTER2) {
-			screen.drawMonster2(32*pos.x,32*pos.y, direct);
-		}
-		else if (spriteId == SpriteCode.FIRE_BALL) {
-			screen.drawFire(32*pos.x, 32*pos.y, direct);
-		}
-	},
-}
-
-var Graphics = function (name) {
-	// constructor
-
-	// set attribute
+var Graphics = function (callback) {
 	this.mapGraphic = null;
 
-	screen = new Screen();
+	screen = new Screen(callback);
 	screen.printRect(0, 0, screen.width, screen.height, "rgba(255, 255, 255, 0.5)");
 }
 
@@ -183,14 +128,29 @@ Graphics.prototype = {
 			this.mapGraphic = new MapGraphic(labyrinth);
 		}
 		this.mapGraphic.print();
+		this.mapGraphic.print(0, 0, 1024);
 	},
 	
 	refreshAll: function(entities) {
-	    this.mapGraphic.print(0,0,1024);
+	    screen.playersMapCxt.clearRect(0, 0, 800, 600);
+
 		for (var i in entities) {
 			var entity = entities[i];
-			var entityGraphic = new EntityGraphic(entity);
-		    entityGraphic.print();
+			var pos = entity.getPosition();
+			var spriteId = entity.getSpriteId();
+
+			if (spriteId == SpriteCode.PLAYER1) {
+				screen.drawPlayer(1, 32 * pos.x, 32 * pos.y, entity.getDirection());
+			} else if (spriteId == SpriteCode.PLAYER2) {
+				screen.drawPlayer(2, 32 * pos.x, 32 * pos.y, entity.getDirection());
+			} else if (spriteId == SpriteCode.MONSTER1) {
+				screen.drawMonster(1, 32*pos.x,32*pos.y, entity.getDirection());
+			} else if (spriteId == SpriteCode.MONSTER2) {
+				screen.drawMonster(2, 32*pos.x,32*pos.y, entity.getDirection());
+			} else if (spriteId == SpriteCode.FIRE_BALL) {
+				screen.drawFire(32*pos.x, 32*pos.y);
+			}
+
 		}
 	}
 }

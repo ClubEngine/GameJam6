@@ -25,9 +25,13 @@
     </head>
 
  	   <body>
-	<canvas id="map" width="800" height="600">
-		Mets à jour ton navigateur connard !
-	</canvas>
+ 	<canvas id="map" width="800" height="600">
+                Mets à jour ton navigateur connard !
+        </canvas>
+        <canvas id="playersMap" width="800" height="600">
+                Mets à jour ton navigateur connard !
+        </canvas>
+
     </body>
 
 	<p id="test">10
@@ -53,11 +57,29 @@ function sleep(milliseconds) {
 		function p(x) { console.log(x); }
 		function nl(x) {  p(""); }
 	
-		var lab=labyrinthFactory("test");	
 		//displayLab(lab);
 
 // ***************************************************************************
+	function delTabElement(oldTab, element) {
+		var newTab = new Array();
 
+		for (i =0;i<oldTab.length; ++i)	{
+			if (oldTab[i] != element) {
+				newTab.push(oldTab[i]);
+			}
+		}	
+		return newTab;
+	}	
+
+
+	var graphics = new Graphics(main_cb);
+
+
+function main_cb() {
+	
+	var lab=labyrinthFactory("test");	
+	graphics.setLabyrinth(lab);
+	
 	var player = new Actor();
 	player.setSpriteId(1);
 	var push_date=Date.now();
@@ -68,13 +90,15 @@ function sleep(milliseconds) {
 	var entities = new Array();
 	entities[0] = player;
 
-	var monster = new Actor(); monster.setSpriteId(1);monster.setPosition(5,1);
+	var monster = new Actor(); monster.setSpriteId(11);monster.setPosition(5,1);
 	entities[1] = monster;
+	var monster1 = new Actor(); monster1.setSpriteId(11);monster1.setPosition(2,3);
+	entities[2] = monster1;
+	var monster2 = new Actor(); monster2.setSpriteId(12);monster2.setPosition(7,4);
+	entities[3] = monster2;
 
 	initKdConf(action);	
 
-	var graphics = new Graphics();
-	graphics.setLabyrinth(lab);
 
 	kd.run(function () {
 		kd.tick();
@@ -100,18 +124,27 @@ function sleep(milliseconds) {
 		if (Date.now() > ball_date + 100) {
 			ball_date = Date.now();
 			
-			newEntities = new Array();	
+			newEntities = entities.slice();
 			for (var i in entities) {
 				if(entities[i].getSpriteId() == SpriteCode.FIRE_BALL){
 					var ball = entities[i];
 					toRm = doMovementFireBall(ball, lab, ball.getDirection());
-					
 					if (!toRm) {
-						newEntities.push(ball);
+						for (var j in entities) {
+							if (i!=j) {
+								tmp_other = entities[j];
+								if (ball.getPosition().x == tmp_other.getPosition().x &&
+									ball.getPosition().y == tmp_other.getPosition().y) {
+									newEntities = delTabElement(newEntities, tmp_other);	
+									toRm = true;
+								}
+							}
+						}	
+					}	
+					if (toRm) {
+						newEntities = delTabElement(newEntities, ball);
 					}
 					
-				} else {
-					newEntities.push(entities[i]);
 				}
 			}
 			entities = newEntities;
@@ -120,6 +153,7 @@ function sleep(milliseconds) {
 		graphics.refreshAll(entities);
 		
 	});	
+}
 
 	</script>
 </html>
