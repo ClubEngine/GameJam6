@@ -61,7 +61,8 @@ function doMovement(actor, laby, action)
 			break;
 	}
 
-	if (action != Action.IDLE) {
+	if (action == Action.UP || action == Action.DOWN ||
+		action == Action.LEFT || action == Action.RIGHT) {
 		actor.setDirection(action);
 	}
 
