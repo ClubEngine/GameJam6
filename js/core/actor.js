@@ -13,5 +13,9 @@ Actor.prototype = {
 	setPosition: function (x,y) {
 		this.pos.x = x;
 		this.pos.y = y;
+	},
+
+	getSpriteId: function () {
+		return 1;
 	}
 }

@@ -1,10 +1,10 @@
 SpriteCode = {
 	
-	PLAYER1 : 1;
-	PLAYER2 : 2;
-	MONSTER1 : 11;
-	MONSTER2 : 12;
+	PLAYER1 : 1,
+	PLAYER2 : 2,
+	MONSTER1 : 11,
+	MONSTER2 : 12,
 	
-	TOTAL : 4;
+	TOTAL : 4
 	
 }	
