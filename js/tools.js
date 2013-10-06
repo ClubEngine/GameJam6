@@ -1,13 +1,12 @@
 function delTabElement(oldTab, element)
 {
-	var newTab = new array();
-	var j=0;	
+	var newTab = new Array();
 
-	for (i =0;i<newTab.length; ++i)
+	for (i =0;i<oldTab.length; ++i)
 	{
 		if (oldTab[i] != element)
 		{
-			newTab[j++]=oldTab[i];
+			newTab.push(oldTab[i]);
 		}
 	}	
 
