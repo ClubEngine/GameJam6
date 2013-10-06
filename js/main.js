@@ -94,6 +94,11 @@ $(document).ready(function () {
 
 function playBall()
 {
+	SoundManager.play("Pas");
+}
+
+function playBall()
+{
 	SoundManager.play("Ball");
 }
 function playDepop()
