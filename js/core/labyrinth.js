@@ -1,0 +1,37 @@
+// Labyrinth 
+// contains a board of case
+
+// Constructor
+// param width(int)
+// param height(int)
+var Labyrinth = function(width, height) {
+	this.data = new Array();
+	this.width = width;
+	this.height = height;
+}
+
+Labyrinth.prototype = {
+
+	// Get the case code at the coo x y
+	// return (int) Case code (see Case enum)
+	get: function(x,y) {
+		if (x > this.width || y > this.height)
+			return CaseCode.UNDEFINED;
+		c = this.data[x,y];
+		return (typeof(c)=='undefined') ? CaseCode.UNDEFINED : c;
+	},
+
+	// Get the physic collision of the case at the coo x y
+	// return (bool) True if the object is an obstacle, else False
+	isObstacle: function(x,y) {
+		var c = this.get(x,y);
+		return c == CaseCode.WALL;
+	},
+
+	
+	// Set the case code into the coo x y
+	set: function(x,y,code) {
+		this.data[x,y] = code;		
+	}
+
+}
