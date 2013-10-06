@@ -5,9 +5,14 @@
 // param width(int)
 // param height(int)
 var Labyrinth = function(width, height) {
-	this.data = new Array();
 	this.width = width;
 	this.height = height;
+	this.data = new Array();
+	for(var x=0;x<width;++x) {
+		this.data[x] = new Array();	
+		for(var y=0;y<height;++y)
+			this.data[x][y] = CaseCode.UNDEFINED;
+	}
 }
 
 Labyrinth.prototype = {
@@ -29,7 +34,7 @@ Labyrinth.prototype = {
 	get: function(x,y) {
 		if (x > this.width || y > this.height)
 			return CaseCode.UNDEFINED;
-		c = this.data[x,y];
+		c = this.data[x][y];
 		return (typeof(c)=='undefined') ? CaseCode.UNDEFINED : c;
 	},
 
@@ -43,7 +48,7 @@ Labyrinth.prototype = {
 	
 	// Set the case code into the coo x y
 	set: function(x,y,code) {
-		this.data[x,y] = code;		
+		this.data[x][y] = code;		
 	}
 
 }
