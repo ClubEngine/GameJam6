@@ -21,12 +21,27 @@ $(document).ready(function () {
 	var entities = new Array();
 	entities[0] = player;
 
-	var monster = new Actor(); monster.setSpriteId(11);monster.setPosition(5,1);
-        entities[1] = monster;
-        var monster1 = new Actor(); monster1.setSpriteId(11);monster1.setPosition(2,3);
-        entities[2] = monster1;
-        var monster2 = new Actor(); monster2.setSpriteId(12);monster2.setPosition(7,4);
-        entities[3] = monster2;	
+	
+	// spwan monsters
+	var freeCases = new Array();
+	for(var x=0 ; x<lab.getWidth() ; ++x) {
+		for(var y=0 ; y<lab.getHeight() ; ++y) {
+			if(!lab.isObstacle(x,y)) {
+				freeCases.push(new Array(x,y));
+			}
+		}
+	}
+	console.log(freeCases.length);
+	for(var nb=0;nb < 10;++nb) {
+		var id = Math.floor(Math.random()*freeCases.length % freeCases.length);
+		var monster = new Actor();
+		monster.setSpriteId(11);
+		console.log(id);
+		monster.setPosition(freeCases[id][0], freeCases[id][1]);
+		entities.push(monster);
+		freeCases = delTabElement(freeCases, freeCases[id]);
+	}
+	// end spawn monsters
 
 
 	var graphics = new Graphics(startGame);
