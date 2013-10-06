@@ -60,6 +60,7 @@ $(document).ready(function () {
 				
 				if (!doMovement(player, lab, action.state)) {
 					playPas();
+					window.scrollTo((player.getPosition().x-5)*32, (player.getPosition().y-5)*32);
 				}
 	
 				if (action.state >= Action.FIRE_U && action.state <= Action.FIRE_L) {
