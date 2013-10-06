@@ -29,17 +29,80 @@ Screen.prototype = {
 	drawFloor: function(x, y) {
 		this.draw(x,y, "assets/crystal_floor3.png");
 	},	
-	drawPlayer1: function(x, y) { 
-		this.draw(x,y, "assets/Player1.png");
+	drawPlayer1: function(x, y, direct) { 
+		if (direct == Action.UP) {
+					
+		this.draw(x,y, "assets/amg1_bk1.gif");
+		} 
+		else if ( direct == Action.DOWN) {
+				
+		this.draw(x,y, "assets/amg1_fr1.gif");
+		}
+		else if ( direct == Action.LEFT) {
+				
+		this.draw(x,y, "assets/amg1_lf1.gif");
+		} 
+		else if ( direct == Action.RIGHT) {
+				
+		this.draw(x,y, "assets/amg1_rt1.gif");
+		}
 	},
-	drawPlayer2: function(x, y) {
-		this.draw(x,y, "assets/Player2.png");
+	drawPlayer2: function(x, y, direct) {
+		if (direct == Action.UP) {
+					
+		this.draw(x,y, "assets/npc5_bk1.gif");
+		} 
+		else if ( direct == Action.DOWN) {
+				
+		this.draw(x,y, "assets/npc5_fr1.gif");
+		} 
+		else if ( direct == Action.LEFT) {
+				
+		this.draw(x,y, "assets/npc5_lf1.gif");
+		} 
+		else if ( direct == Action.RIGHT) {
+				
+		this.draw(x,y, "assets/npc5_rt1.gif");
+		}
 	},
-	drawMonster1: function(x, y) {
-		this.draw(x,y, "assets/Monster1.png");
+	drawMonster1: function(x, y, direct) {
+		if (direct == Action.UP) {
+					
+		this.draw(x,y, "assets/scr1_bk1.gif");
+		} 
+		else if ( direct == Action.DOWN) {
+				
+		this.draw(x,y, "assets/scr1_fr1.gif");
+		} 
+			
+		else if ( direct == Action.LEFT) {
+				
+		this.draw(x,y, "assets/scr1_lf1.gif");
+		} 
+		else if ( direct == Action.RIGHT) {
+				
+		this.draw(x,y, "assets/scr1_rt1.gif");
+		}
 	},
-	drawMonster2: function(x, y) {
-		this.draw(x,y, "assets/Monster2.png");
+	drawMonster2: function(x, y, direct) {
+		if (direct == Action.UP) {	
+		this.draw(x,y, "assets/wmg1_bk1.gif");
+		} 
+		else if ( direct == Action.DOWN) {
+				
+		this.draw(x,y, "assets/wmg1_fr1.gif");
+		} 
+		else if ( direct == Action.LEFT) {
+				
+		this.draw(x,y, "assets/wmg1_lf1.gif");
+		} 
+		else if ( direct == Action.RIGHT) {
+				
+		this.draw(x,y, "assets/wmg1_rt1.gif");
+		}
+	},
+	drawFire: function(x, y) {
+		this.draw(x,y, "assets/conjure_ball_lightning.png");
 	},
 
 }
@@ -83,18 +146,22 @@ EntityGraphic.prototype = {
 	print: function () {
 		var pos = this.entity.getPosition();
 		var spriteId = this.entity.getSpriteId();
+		var direct = this.entity.getDirection();
 		if (spriteId == SpriteCode.PLAYER1) {
-			screen.drawPlayer1(32*pos.x,32*pos.y);
+			screen.drawPlayer1(32*pos.x,32*pos.y, direct);
 		}
-//		else if (spriteId == PLAYER2) {
-//			screen.drawPlayer2(32*pos.X,32*pos.Y);
-//		}		
-//		else if (spriteId == MONSTER1) {
-//			screen.drawMonster1(32*pos.X,32*pos.Y);
-//		}
-//		else if (spriteId == MONSTER2) {
-//			screen.drawMonster2(32*pos.X,32*pos.Y);
-//		}
+		else if (spriteId == SpriteCode.PLAYER2) {
+			screen.drawPlayer2(32*pos.x,32*pos.y, direct);
+		}		
+		else if (spriteId == SpriteCode.MONSTER1) {
+			screen.drawMonster1(32*pos.x,32*pos.y, direct);
+		}
+		else if (spriteId == SpriteCode.MONSTER2) {
+			screen.drawMonster2(32*pos.x,32*pos.y, direct);
+		}
+		else if (spriteId == SpriteCode.FIRE_BALL) {
+			screen.drawFire(32*pos.x, 32*pos.y, direct);
+		}
 	},
 }
 
