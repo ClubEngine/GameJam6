@@ -1,7 +1,7 @@
 function doMovement(actor, laby, action)
 {
 	var currentPos = actor.getPosition();
-	var nextPos=currentPos;
+	var nextPos = new Vector(currentPos.x, currentPos.y);
 	
 	// change the new position
 	switch (action)
@@ -24,8 +24,8 @@ function doMovement(actor, laby, action)
 	}
 
 	// test if the new position is not an bstacle
-	if (! laby.isObstacle(nextPos))
+	if (! laby.isObstacle(nextPos.x, nextPos.y))
 	{
-		actor.setPosition(nextPos);
+		actor.setPosition(nextPos.x, nextPos.y);
 	}
 }
