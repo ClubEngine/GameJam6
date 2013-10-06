@@ -32,10 +32,12 @@ Labyrinth.prototype = {
 	// Get the case code at the coo x y
 	// return (int) Case code (see Case enum)
 	get: function(x,y) {
-		if (x >= this.width || y >= this.height || x < 0 || y < 0)
+		if (x >= this.width || y >= this.height || x < 0 || y < 0) {
 			return CaseCode.UNDEFINED;
-		c = this.data[x][y];
-		return (typeof(c)=='undefined') ? CaseCode.UNDEFINED : c;
+		} else {
+			c = this.data[x][y];
+			return (typeof(c)=='undefined') ? CaseCode.UNDEFINED : c;
+		}
 	},
 
 	// Get the physic collision of the case at the coo x y

@@ -13,6 +13,7 @@ $(document).ready(function () {
 
 	var push_date = Date.now();
 	var ball_date = Date.now();
+	var anim_date = Date.now();
 	var action = function() { this.state = Action.IDLE; };
 	
 
@@ -36,7 +37,6 @@ $(document).ready(function () {
 		var id = Math.floor(Math.random()*freeCases.length % freeCases.length);
 		var monster = new Actor();
 		monster.setSpriteId(11);
-		console.log(id);
 		monster.setPosition(freeCases[id][0], freeCases[id][1]);
 		entities.push(monster);
 		freeCases = delTabElement(freeCases, freeCases[id]);
@@ -70,11 +70,10 @@ $(document).ready(function () {
 					entities.push(ball);
 					playBall();
 				}
-
 			}
 		}
 
-
+		// Move fire balls
 		if (Date.now() > ball_date + 100) {
                         ball_date = Date.now();
                         
@@ -100,12 +99,42 @@ $(document).ready(function () {
 						playDepop();
                                         }
 
-				}
+				} 
                         }
                         entities = newEntities;
                 }
 
+		// Anim monsters. Move to a neighbour case randomly.
+		if (Date.now() > anim_date + 1000) {		
+			anim_date = Date.now();
+			for (var i in entities) {
+				if (entities[i].getSpriteId() == SpriteCode.MONSTER1) {
+					var rdir = Math.floor(Math.random()*4);
+				console.log(rdir);
+					var vdir = new Vector(0, 0);
+					switch(rdir) {
+						case 0:
+							vdir.x = 1;
+							break;
+						case 1:
+							vdir.x = -1;
+							break;
+						case 2:
+							vdir.y = 1;
+							break;
+						case 3:
+							vdir.y = -1;
+							break;
+					}
+					var cpos = entities[i].getPosition();
 		
+					if(!lab.isObstacle(cpos.x+vdir.x, cpos.y+vdir.y)) {
+						entities[i].setPosition(cpos.x+vdir.x, cpos.y+vdir.y);	
+					}
+				}
+			}
+		}		
+
 		graphics.refreshAll(entities);
 		});	
 	}
