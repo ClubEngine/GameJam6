@@ -55,7 +55,7 @@ Screen.prototype = {
 	},
 	drawFloor: function(x, y) {
 		this.draw(x,y, "assets/crystal_floor3.png");
-	}	
+	},	
 	drawPlayer1: function(x, y) {
 		this.draw(x,y, "assets/Player1.png");
 	},
