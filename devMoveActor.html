@@ -1,0 +1,130 @@
+
+<!doctype html>
+<html lang="fr">
+    <head>
+
+        <meta charset="utf-8">
+
+        <script src="js/core/case.js"></script>
+        <script src="js/core/labyrinth.js"></script>
+        <script src="js/core/labyrinthFactory.js"></script>
+        <script src="js/core/actor.js"></script>
+        <script src="js/core/vector.js"></script>
+        <script src="js/core/action.js"></script>
+        <script src="js/core/movement.js"></script>
+	<script src="libs/keydrown.min.js"></script>
+	
+
+        <link rel="stylesheet" type="text/css" href="css/reset.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
+
+        <title>Patate - GameJam 6</title>
+
+    </head>
+
+ 	   <body>
+<canvas id="map" width="800" height="600">
+		Mets à jour ton navigateur connard !
+	</canvas>
+    </body>
+
+	<p id="test">5
+	5
+	21111
+	11111
+	21112
+	11111
+	11111
+	11111
+	</p>	
+
+	<script src="js/core/sprite.js"></script>
+	<script src="js/graphics.js"></script>
+	<script>
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
+
+		function p(x) { console.log(x); }
+		function nl(x) {  p(""); }
+		
+		function displayLab(lab) {
+			for (var y=0;y<lab.getHeight();++y) {
+				for (var x=0;x<lab.getWidth();++x) {
+					p(lab.get(x,y));
+				}
+				nl();
+			}
+		}
+
+	
+		var lab=labyrinthFactory("test");	
+		//displayLab(lab);
+
+// ***************************************************************************
+
+	var player = new Actor();
+	var push_date=Date.now();
+	var action = Action.IDLE;	
+	
+	var entities = new Array();
+	entities[0] = player;
+
+	kd.UP.up(function() {
+		action = Action.IDLE;
+	});
+
+	kd.UP.down(function() {
+		action = Action.UP;
+	});
+
+	kd.DOWN.up(function() {
+		action = Action.IDLE;
+	});
+
+	kd.DOWN.down(function() {
+		action = Action.DOWN;
+	});
+
+	kd.RIGHT.up(function() {
+		action = Action.IDLE;
+	});
+
+	kd.RIGHT.down(function() {
+		action = Action.RIGHT;
+	});
+
+	kd.LEFT.up(function() {
+		action = Action.IDLE;
+	});
+
+	kd.LEFT.down(function() {
+		action = Action.LEFT;
+	});
+
+	var graphics = new Graphics();
+	graphics.setLabyrinth(lab);
+
+	kd.run(function () {
+		kd.tick();
+		
+		if (action != Action.IDLE) {	
+			if (Date.now() > push_date + 500) {
+				push_date = Date.now();
+				
+				doMovement(player, lab, action);
+	
+			}
+		}
+		
+		graphics.refreshAll(entities);
+		
+	});	
+
+	</script>
+</html>
