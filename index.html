@@ -5,6 +5,14 @@
 
         <meta charset="utf-8">
 
+        <script src="libs/jquery.min.js"></script>
+        <script src="libs/keydrown.min.js"></script>
+        <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+
+        <script src="js/network.js"></script>
+
+        <script src="js/main.js"></script>
+
         <link rel="stylesheet" type="text/css" href="css/reset.min.css" />
         <link rel="stylesheet" type="text/css" href="css/main.css" />
 
@@ -14,13 +22,32 @@
     </head>
 
     <body>
-	<canvas id="map" width="400" height="300">
+	<canvas id="map" width="800" height="600">
 		Mets à jour ton navigateur connard !
 	</canvas>
 
+	<p id="test">10
+	10
+	2122222222
+	2111121122
+	2111111112
+	2112221122
+	2122222122
+	2222211112
+	2111112222
+	2121212122
+	2111111112
+	2212222222
+	</p>	
+
+	
         <script src="libs/jquery.min.js"></script>
         <script src="libs/keydrown.min.js"></script>
         <script src="js/main.js"></script>
-	<script src="js/graphics.js"></script>
+		<script src="js/core/case.js"></script>
+		<script src="js/core/labyrinth.js"></script>
+		<script src="js/core/labyrinthFactory.js"></script>
+		<script src="js/graphics.js"></script>
+		
     </body>
 </html>
