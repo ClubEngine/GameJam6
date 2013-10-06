@@ -11,23 +11,30 @@ $(document).ready(function () {
 
 	var lab = labyrinthFactory("test");	
 
-	var player = new Actor();
-	player.setSpriteId(1);
-	player.setPosition(1, 0);
 	var push_date = Date.now();
 	var ball_date = Date.now();
 	var action = function() { this.state = Action.IDLE; };
 	
+
+	var player = new Actor(); player.setSpriteId(1); player.setPosition(1, 0);
+
 	var entities = new Array();
 	entities[0] = player;
 
-	initKdConf(action);	
+	var monster = new Actor(); monster.setSpriteId(11);monster.setPosition(5,1);
+        entities[1] = monster;
+        var monster1 = new Actor(); monster1.setSpriteId(11);monster1.setPosition(2,3);
+        entities[2] = monster1;
+        var monster2 = new Actor(); monster2.setSpriteId(12);monster2.setPosition(7,4);
+        entities[3] = monster2;	
+
 
 	var graphics = new Graphics(startGame);
 
 	function startGame () {
 		graphics.setLabyrinth(lab);
-		graphics.mapGraphic.print(0, 0, 1024);
+
+		initKdConf(action);	
 		kd.run(function () {
 			kd.tick();
 
@@ -49,25 +56,36 @@ $(document).ready(function () {
 			}
 		}
 
+
 		if (Date.now() > ball_date + 100) {
-			ball_date = Date.now();
-			
-			newEntities = new Array();	
-			for (var i in entities) {
-				if(entities[i].getSpriteId() == SpriteCode.FIRE_BALL){
-					var ball = entities[i];
-					toRm = doMovementFireBall(ball, lab, ball.getDirection());
-					
-					if (!toRm) {
-						newEntities.push(ball);
-					}
-					
-				} else {
-					newEntities.push(entities[i]);
+                        ball_date = Date.now();
+                        
+                        newEntities = entities.slice();
+                        for (var i in entities) {
+                                if(entities[i].getSpriteId() == SpriteCode.FIRE_BALL){
+                                        var ball = entities[i];
+                                        toRm = doMovementFireBall(ball, lab, ball.getDirection());
+                                        if (!toRm) {
+                                                for (var j in entities) {
+                                                        if (i!=j) {
+                                                                tmp_other = entities[j];
+                                                                if (ball.getPosition().x == tmp_other.getPosition().x &&
+                                                                        ball.getPosition().y == tmp_other.getPosition().y) {
+                                                                        newEntities = delTabElement(newEntities, tmp_other);    
+                                                                        toRm = true;
+                                                                }
+                                                        }
+                                                }       
+                                        }       
+                                        if (toRm) {
+                                                newEntities = delTabElement(newEntities, ball);
+                                        }
+
 				}
-			}
-			entities = newEntities;
-		}
+                        }
+                        entities = newEntities;
+                }
+
 		
 		graphics.refreshAll(entities);
 		});	
