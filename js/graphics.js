@@ -31,10 +31,28 @@ Screen.prototype = {
 	printRect: function(x1, y1, w, h, color) {
   		this.context.fillStyle = color;
   		this.context.fillRect(x1, y1, w, h);
-	}
+	},
+
+	draw: function(x,y,src) {
+    		var img = new Image();
+    		img.src = src;
+		var _this = this;
+    		img.onload = function(){
+      			_this.context.drawImage(img, x, y);
+		}
+	},
+	drawWall: function(x, y) {
+		this.draw(x,y, "assets/stone_brick12.png");
+	},
+	drawFloor: function(x, y) {
+		this.draw(x,y, "assets/crystal_floor3.png");
+	}	
+
 }
 var screen = new Screen();
 screen.printRect(0, 0, screen.width, screen.height, "rgba(255, 255, 255, 0.5)");
+  
+
 
 var MapGraphic = function (labyrinth) {
 	this.labyrinth = labyrinth
@@ -44,17 +62,14 @@ MapGraphic.prototype = {
 	print: function() {
 		// Parcours de la matrice et affichage d'un 
 		// carré de couleur différente pour chaque nombre
-		console.log(this.labyrinth, CaseCode.WALL);
-		console.log(this.labyrinth.getWidth(), this.labyrinth.getHeight());
 		for (y = 0; y < this.labyrinth.getHeight(); y++ ) {
 			for (x = 0; x < this.labyrinth.getWidth(); x++ ) {
 				var type = parseInt(this.labyrinth.get(x, y));
-				console.log(x, y, type);
 				if (type == CaseCode.WALL) {
-					screen.printRect(32*x,32*y,32,32, "rgba(64,64,64,1)");
+					screen.drawWall(32*x,32*y);
 				}	
 				else if (type == CaseCode.GROUND) {
-					screen.printRect(32*x,32*y,32,32, "rgba(255,255,255,1)");
+					screen.drawFloor(32*x,32*y);
 				}	
 				else if (type == CaseCode.UNDEFINED) {
 					screen.printRect(32*x,32*y,32,32, "rgba(255,0,0,1)");
