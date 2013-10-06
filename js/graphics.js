@@ -29,7 +29,7 @@ Screen.prototype = {
 	drawFloor: function(x, y) {
 		this.draw(x,y, "assets/crystal_floor3.png");
 	},	
-	drawPlayer1: function(x, y) {
+	drawPlayer1: function(x, y) { 
 		this.draw(x,y, "assets/Player1.png");
 	},
 	drawPlayer2: function(x, y) {
@@ -49,24 +49,30 @@ var MapGraphic = function (labyrinth) {
 }
 
 MapGraphic.prototype = {
-	print: function() {
-		// Parcours de la matrice et affichage d'un 
-		// carré de couleur différente pour chaque nombre
-		for (y = 0; y < this.labyrinth.getHeight(); y++ ) {
-			for (x = 0; x < this.labyrinth.getWidth(); x++ ) {
-				var type = parseInt(this.labyrinth.get(x, y));
-				if (type == CaseCode.WALL) {
-					screen.drawWall(32*x,32*y);
-				}	
-				else if (type == CaseCode.GROUND) {
-					screen.drawFloor(32*x,32*y);
-				}	
-				else if (type == CaseCode.UNDEFINED) {
-					screen.printRect(32*x,32*y,32,32, "rgba(255,0,0,1)");
-				}	
-			}		
+    print: function(origin_x, origin_y, visionScope) {
+	// Parcours de la matrice et affichage d'un 
+	// carré de couleur différente pour chaque nombre
+	for (y = 0; y < this.labyrinth.getHeight(); y++ ) {
+	    for (x = 0; x < this.labyrinth.getWidth(); x++ ) {
+		var type = parseInt(this.labyrinth.get(x, y));
+		if (!this.is_visible(origin_x, origin_y, visionScope, x, y) || type == CaseCode.UNDEFINED) {
+		    screen.printRect(32*x,32*y,32,32, "rgba(255,0,0,1)");
 		}
+		else if (type == CaseCode.WALL) {
+		    screen.drawWall(32*x,32*y);
+		}	
+		else if (type == CaseCode.GROUND) {
+		    screen.drawFloor(32*x,32*y);
+		}	
+	    }		
 	}
+    },
+    
+    is_visible: function (origin_x, origin_y, visionScope, x, y) {
+	var diff_x = x - origin_x;
+	var diff_y = y - origin_y;
+	return (diff_x < visionScope && diff_y < visionScope && diff_x > -visionScope && diff_y > -visionScope);
+    }
 }
 
 var EntityGraphic = function (entity) {
@@ -80,15 +86,15 @@ EntityGraphic.prototype = {
 		if (spriteId == SpriteCode.PLAYER1) {
 			screen.drawPlayer1(32*pos.x,32*pos.y);
 		}
-		else if (spriteId == PLAYER2) {
-			screen.drawPlayer2(32*pos.X,32*pos.Y);
-		}		
-		else if (spriteId == MONSTER1) {
-			screen.drawMonster1(32*pos.X,32*pos.Y);
-		}
-		else if (spriteId == MONSTER2) {
-			screen.drawMonster2(32*pos.X,32*pos.Y);
-		}
+//		else if (spriteId == PLAYER2) {
+//			screen.drawPlayer2(32*pos.X,32*pos.Y);
+//		}		
+//		else if (spriteId == MONSTER1) {
+//			screen.drawMonster1(32*pos.X,32*pos.Y);
+//		}
+//		else if (spriteId == MONSTER2) {
+//			screen.drawMonster2(32*pos.X,32*pos.Y);
+//		}
 	},
 }
 
@@ -113,11 +119,11 @@ Graphics.prototype = {
 	},
 	
 	refreshAll: function(entities) {
-		this.mapGraphic.print();
+	    this.mapGraphic.print(0,0,1024);
 		for (var i in entities) {
 			var entity = entities[i];
 			var entityGraphic = new EntityGraphic(entity);
-			entityGraphic.print();
+		    entityGraphic.print();
 		}
 	}
 }
