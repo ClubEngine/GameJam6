@@ -3,6 +3,7 @@
 
 var Actor = function () {
 	this.pos = new Vector(0,0);
+	this.spriteId = 0;
 }
 
 Actor.prototype = {
@@ -16,6 +17,12 @@ Actor.prototype = {
 	},
 
 	getSpriteId: function () {
-		return 1;
+		return this.spriteId;
+	},
+	
+	setSpriteId: function(id) {
+		this.spriteId = id;
 	}
+
+
 }
