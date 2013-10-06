@@ -5,9 +5,39 @@ SoundManager = {
 		var audioPath = "assets/sounds/";
 		var manifest = [
 		{
-			id: "South",
+			id: "South1",
+			src: "south/south_english_1.ogg"
+		},
+		{
+			id: "South2",
+			src: "south/south_english_2.ogg"
+		},
+
+		{
+			id: "South3",
+			src: "south/south_english_3.ogg"
+		},
+
+		{
+			id: "South4",
+			src: "south/south_english_4.ogg"
+		},
+		
+		{
+			id: "South5",
 			src: "south/south_english_5.ogg"
 		},
+		{
+			id: "South6",
+			src: "south/south_english_6.ogg"
+		},
+
+		{
+			id: "South7",
+			src: "south/south_english_7.ogg"
+		},
+
+
 		{
 			id: "North",
 			src: "north/north_english_7.ogg"
