@@ -37,7 +37,8 @@ var Screen = function(callback) {
 
 		// Labyrinth
 		'wall': 'assets/stone_brick12.png',
-		'floor': 'assets/crystal_floor3.png'
+		'floor': 'assets/crystal_floor3.png',
+		'arena': 'assets/rough_red0.png'
 	}
 
 	this.sprites = [];
@@ -71,6 +72,9 @@ Screen.prototype = {
 	drawFloor: function(x, y) {
 		this.context.drawImage(this.sprites['floor'], x, y);
 	},
+	drawArena: function(x, y) {
+		this.context.drawImage(this.sprites['arena'], x, y);
+	},
 	drawPlayer: function (iPlayer, x, y, direction) {
 		direction = direction || 1;
 		this.playersMapCxt.drawImage(this.sprites['player' + iPlayer + direction.toString()], x, y);
@@ -101,6 +105,11 @@ MapGraphic.prototype = {
 				screen.drawWall(32*x,32*y);
 			} else if (type == CaseCode.GROUND) {
 				screen.drawFloor(32*x,32*y);
+			}
+			
+			  else if (type == CaseCode.ARENA) {
+				screen.drawArena(32*x,32*y);
+				console.log('bonjour')
 			}	
 		}		
 	}
@@ -132,7 +141,7 @@ Graphics.prototype = {
 	},
 	
 	refreshAll: function(entities) {
-	    screen.playersMapCxt.clearRect(0, 0, 800, 600);
+	    screen.playersMapCxt.clearRect(0, 0, 736, 1024);
 
 		for (var i in entities) {
 			var entity = entities[i];

@@ -275,7 +275,11 @@ SoundManager = {
 		{
 			id: "Depop",
 			src: "samples/depop.ogg"
-		};
+		},
+		{
+			id: "Pas",
+			src: "samples/pas.ogg"
+		}
 		];
 	
 		createjs.Sound.registerManifest(manifest, audioPath);
