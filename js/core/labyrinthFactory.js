@@ -18,7 +18,7 @@ function labyrinthFactory(idLabyrinth)
 	{
 		for(var j=0; j<width; ++j)
 		{
-			labyrinth.set(j, i,fileContent.substring(j,j+1));
+			labyrinth.set(j, i,fileContent.substring(j+1,j+2));
 		}
 
 		var fileContent=fileContent.substring(fileContent.indexOf('\n')+1);
