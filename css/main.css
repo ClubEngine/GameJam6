@@ -4,6 +4,22 @@ body, html {
 
 canvas {
 	position: absolute;
+	display: none;
 	top: 0px;
 	bottom: 0px;
+}
+
+#map-menu {
+	width: 200px;
+	background: #DDD;
+	margin: auto;
+	padding: 10px;
+}
+#map-menu li {
+	cursor: pointer;
+	padding: 5px;
+	border-radius: 5px;
+}
+#map-menu li:hover {
+	background: #FFF;
 }
