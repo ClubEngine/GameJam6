@@ -51,6 +51,7 @@ $(document).ready(function () {
 					ball.setSpriteId(SpriteCode.FIRE_BALL);
 					ball.setDirection(action.state);
 					entities.push(ball);
+					playBall();
 				}
 
 			}
@@ -79,6 +80,7 @@ $(document).ready(function () {
                                         }       
                                         if (toRm) {
                                                 newEntities = delTabElement(newEntities, ball);
+						playDepop();
                                         }
 
 				}
