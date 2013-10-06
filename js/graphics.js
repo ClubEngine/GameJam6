@@ -71,7 +71,7 @@ MapGraphic.prototype = {
     is_visible: function (origin_x, origin_y, visionScope, x, y) {
 	var diff_x = x - origin_x;
 	var diff_y = y - origin_y;
-	return (diff_x < visionScope && diff_y < visionScope && diff_x > -visionScope && diff_y > -visionScope)
+	return (diff_x < visionScope && diff_y < visionScope && diff_x > -visionScope && diff_y > -visionScope);
     }
 }
 
@@ -86,15 +86,15 @@ EntityGraphic.prototype = {
 		if (spriteId == SpriteCode.PLAYER1) {
 			screen.drawPlayer1(32*pos.x,32*pos.y);
 		}
-		else if (spriteId == PLAYER2) {
-			screen.drawPlayer2(32*pos.X,32*pos.Y);
-		}		
-		else if (spriteId == MONSTER1) {
-			screen.drawMonster1(32*pos.X,32*pos.Y);
-		}
-		else if (spriteId == MONSTER2) {
-			screen.drawMonster2(32*pos.X,32*pos.Y);
-		}
+//		else if (spriteId == PLAYER2) {
+//			screen.drawPlayer2(32*pos.X,32*pos.Y);
+//		}		
+//		else if (spriteId == MONSTER1) {
+//			screen.drawMonster1(32*pos.X,32*pos.Y);
+//		}
+//		else if (spriteId == MONSTER2) {
+//			screen.drawMonster2(32*pos.X,32*pos.Y);
+//		}
 	},
 }
 
@@ -119,7 +119,7 @@ Graphics.prototype = {
 	},
 	
 	refreshAll: function(entities) {
-		this.mapGraphic.print();
+	    this.mapGraphic.print(0,0,1024);
 		for (var i in entities) {
 			var entity = entities[i];
 			var entityGraphic = new EntityGraphic(entity);
