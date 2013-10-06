@@ -59,6 +59,7 @@ function sleep(milliseconds) {
 // ***************************************************************************
 
 	var player = new Actor();
+	player.setSpriteId(1);
 	var push_date=Date.now();
 	var action = function() { this.state = Action.IDLE; };
 	
