@@ -31,5 +31,40 @@ function initKdConf(action) {
 	kd.LEFT.down(function() {
 		action.state  = Action.LEFT;
 	});
+
+
+
+	
+	kd.Z.up(function() {
+		action.state  = Action.IDLE;
+	});
+
+	kd.Z.down(function() {
+		action.state  = Action.FIRE_U;
+	});
+	
+	kd.D.up(function() {
+		action.state  = Action.IDLE;
+	});
+
+	kd.D.down(function() {
+		action.state  = Action.FIRE_R;
+	});
+	
+	kd.S.up(function() {
+		action.state  = Action.IDLE;
+	});
+
+	kd.S.down(function() {
+		action.state  = Action.FIRE_D;
+	});
+	
+	kd.Q.up(function() {
+		action.state  = Action.IDLE;
+	});
+
+	kd.Q.down(function() {
+		action.state  = Action.FIRE_L;
+	});
 }
 

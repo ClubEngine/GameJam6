@@ -32,7 +32,7 @@
 
 	<p id="test">10
 	5
-	2111111111
+	1111111111
 	1111111111
 	2111211111
 	1111111111
@@ -68,6 +68,9 @@ function sleep(milliseconds) {
 	var entities = new Array();
 	entities[0] = player;
 
+	var monster = new Actor(); monster.setSpriteId(1);monster.setPosition(5,1);
+	entities[1] = monster;
+
 	initKdConf(action);	
 
 	var graphics = new Graphics();
@@ -83,29 +86,35 @@ function sleep(milliseconds) {
 				
 				doMovement(player, lab, action.state);
 				
-				if (action >= Action.FIRE_U && action <= Action.FIRE_L) {
+				if (action.state >= Action.FIRE_U && action.state <= Action.FIRE_L) {
 					ball = new Actor();
+					ball.setPosition(player.getPosition().x, player.getPosition().y);
 					ball.setSpriteId(SpriteCode.FIRE_BALL);
+					ball.setDirection(action.state);
 					entities.push(ball);
 				}
 	
 			}
 		}
 
-		if (Date.now() > ball_date + 150) {
+		if (Date.now() > ball_date + 100) {
 			ball_date = Date.now();
-		
-			entCopy = entities.slice(0);	
-			for (var i in entCopy) {
-				if(entCopy[i].getSpriteId() == SpriteCode.FIRE_BALL){
-					var ball = entCopy[i];
+			
+			newEntities = new Array();	
+			for (var i in entities) {
+				if(entities[i].getSpriteId() == SpriteCode.FIRE_BALL){
+					var ball = entities[i];
 					toRm = doMovementFireBall(ball, lab, ball.getDirection());
-					var index = entities.indexOf(ball);
-					if (index > -1)
-						entities.slice(index, 1);
 					
+					if (!toRm) {
+						newEntities.push(ball);
+					}
+					
+				} else {
+					newEntities.push(entities[i]);
 				}
 			}
+			entities = newEntities;
 		}
 		
 		graphics.refreshAll(entities);
