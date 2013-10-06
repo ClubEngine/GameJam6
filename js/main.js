@@ -51,4 +51,45 @@ function playNo()
 	i=Math.floor((Math.random()*100)%6)+1;
 	SoundManager.play('No'+i);
 }
+function playRNorth()
+{
+	i=Math.floor((Math.random()*100)%7)+1;
+	SoundManager.play('RNorth'+i);
+
+
+}
+function playRSouth()
+{
+	i=Math.floor((Math.random()*100)%7)+1;
+	SoundManager.play('RSouth'+i);
+
+}
+
+function playREast()
+{
+	i=Math.floor((Math.random()*100)%4)+1;
+	SoundManager.play('REast'+i);
+
+}
+
+
+function playRWest()
+{
+	i=Math.floor((Math.random()*100)%3)+1;
+	SoundManager.play('RWest'+i);
+
+}
+
+
+function playRYes()
+{
+	i=Math.floor((Math.random()*100)%5)+1;
+	SoundManager.play('RYes'+i);
+}
+
+function playRNo()
+{
+	i=Math.floor((Math.random()*100)%6)+1;
+	SoundManager.play('RNo'+i);
+}
 
