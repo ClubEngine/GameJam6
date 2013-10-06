@@ -71,4 +71,6 @@ function doMovement(actor, laby, action)
 	{
 		actor.setPosition(nextPos.x, nextPos.y);
 	}
+
+	return laby.isObstacle(nextPos.x, nextPos.y);
 }

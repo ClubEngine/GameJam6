@@ -43,8 +43,10 @@ $(document).ready(function () {
 			if (Date.now() > push_date + 150) {
 				push_date = Date.now();
 				
-				doMovement(player, lab, action.state);
-				
+				if (!doMovement(player, lab, action.state)) {
+					playPas();
+				}
+	
 				if (action.state >= Action.FIRE_U && action.state <= Action.FIRE_L) {
 					ball = new Actor();
 					ball.setPosition(player.getPosition().x, player.getPosition().y);
@@ -94,11 +96,11 @@ $(document).ready(function () {
 	}
 });
 
-function playBall()
+
+function playPas()
 {
 	SoundManager.play("Pas");
 }
-
 function playBall()
 {
 	SoundManager.play("Ball");
