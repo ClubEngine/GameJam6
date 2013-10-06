@@ -12,6 +12,18 @@ var Labyrinth = function(width, height) {
 
 Labyrinth.prototype = {
 
+	// Get the Width
+	// return (int)
+	getWidth: function() {
+		return this.width;
+	},
+	// Get the Height
+	// return (int)
+	getHeight: function() {
+		return this.height;
+	},
+
+
 	// Get the case code at the coo x y
 	// return (int) Case code (see Case enum)
 	get: function(x,y) {
