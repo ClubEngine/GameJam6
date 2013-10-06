@@ -11,6 +11,7 @@
         <script src="js/core/actor.js"></script>
         <script src="js/core/vector.js"></script>
         <script src="js/core/action.js"></script>
+        
         <script src="js/core/movement.js"></script>
 	<script src="js/kdconf.js"></script>
 	<script src="libs/keydrown.min.js"></script>
@@ -59,6 +60,7 @@ function sleep(milliseconds) {
 // ***************************************************************************
 
 	var player = new Actor();
+	player.setSpriteId(1);
 	var push_date=Date.now();
 	var action = function() { this.state = Action.IDLE; };
 	
@@ -79,12 +81,10 @@ function sleep(milliseconds) {
 				push_date = Date.now();
 				
 				doMovement(player, lab, action.state);
-	
 			}
 		}
-		
+
 		graphics.refreshAll(entities);
-		
 	});	
 
 	</script>

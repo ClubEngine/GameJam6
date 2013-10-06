@@ -5,6 +5,15 @@
 
         <meta charset="utf-8">
 
+        <script src="js/core/case.js"></script>
+        <script src="js/core/labyrinth.js"></script>
+        <script src="js/core/labyrinthFactory.js"></script>
+        <script src="js/core/movement.js"></script>
+        <script src="js/core/actor.js"></script>
+        <script src="js/core/vector.js"></script>
+        <script src="js/core/action.js"></script>
+        <script src="js/core/sprite.js"></script>
+
         <script src="libs/jquery.min.js"></script>
         <script src="libs/keydrown.min.js"></script>
         <!--script src="http://localhost:8080/socket.io/socket.io.js"></script-->
@@ -12,8 +21,10 @@
         <!--script src="js/network.js"></script-->
 
         <script src="libs/soundjs.min.js"></script>
-        <script src="js/soundManager.js"></script>
 
+        <script src="js/graphics.js"></script>
+        <script src="js/soundManager.js"></script>
+        <script src="js/kdconf.js"></script>
         <script src="js/main.js"></script>
 
         <link rel="stylesheet" type="text/css" href="css/reset.min.css" />
@@ -26,6 +37,9 @@
 
     <body>
 	<canvas id="map" width="800" height="600">
+		Mets à jour ton navigateur connard !
+	</canvas>
+	<canvas id="playersMap" width="800" height="600">
 		Mets à jour ton navigateur connard !
 	</canvas>
 
@@ -41,23 +55,7 @@
 	2121212122
 	2111111112
 	2212222222
-	</p>	
-
-	
-        <script src="libs/jquery.min.js"></script>
-        <script src="libs/keydrown.min.js"></script>
-        <script src="js/main.js"></script>
-		<script src="js/core/case.js"></script>
-		<script src="js/core/labyrinth.js"></script>
-		<script src="js/core/labyrinthFactory.js"></script>
-		<script src="js/graphics.js"></script>
-	
-	<script>
-		var lab = labyrinthFactory("test");
-		var graphics = new Graphics();
-		graphics.setLabyrinth(lab);
-		graphics.refreshAll(new Array());
-	</script>
+	</p>
 		
     </body>
 </html>
