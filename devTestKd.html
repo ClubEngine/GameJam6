@@ -1,0 +1,52 @@
+
+<!doctype html>
+<html lang="fr">
+    <head>
+
+        <meta charset="utf-8">
+
+        <script src="js/core/case.js"></script>
+        <script src="js/core/labyrinth.js"></script>
+        <script src="js/core/labyrinthFactory.js"></script>
+        <script src="js/core/actor.js"></script>
+        <script src="js/core/vector.js"></script>
+	<script src="libs/keydrown.min.js"></script>
+	<script src="libs/jquery.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="css/reset.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/main.css" />
+
+        <title>Patate - GameJam 6</title>
+
+    </head>
+
+    <body>
+
+	<script>
+		function p(x) { document.write(x); }
+		function nl() {  p("</br>"); }
+		
+		$(document).ready(function() {
+	kd.D.up( function () {
+		p("^d");
+	});
+
+	kd.D.down(function() {
+		p("!d");
+	});
+
+	kd.SPACE.up( function () {
+		p("^e");
+	});
+	kd.SPACE.down(function() {
+		p("!e");
+	});
+
+	kd.run(function () {
+		kd.tick();
+	});	
+	});
+
+	</script>
+    </body>
+</html>
