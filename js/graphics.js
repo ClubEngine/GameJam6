@@ -72,7 +72,7 @@ Screen.prototype = {
 	drawFloor: function(x, y) {
 		this.context.drawImage(this.sprites['floor'], x, y);
 	},
-	{drawArena: function(x, y) {
+	drawArena: function(x, y) {
 		this.context.drawImage(this.sprites['arena'], x, y);
 	},
 	drawPlayer: function (iPlayer, x, y, direction) {
@@ -106,8 +106,10 @@ MapGraphic.prototype = {
 			} else if (type == CaseCode.GROUND) {
 				screen.drawFloor(32*x,32*y);
 			}
+			
 			  else if (type == CaseCode.ARENA) {
-				screen.drawWall(32*x,32*y);
+				screen.drawArena(32*x,32*y);
+				console.log('bonjour')
 			}	
 		}		
 	}
