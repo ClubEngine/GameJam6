@@ -1,53 +1,54 @@
 $(document).ready(function () {
 	SoundManager.init();
-	playSouth();
-//	SoundManager.play('South1');
-//	SoundManager.play('North');
-//	SoundManager.play('East');
-//	SoundManager.play('West');
-//	SoundManager.play('Yes');
-//	SoundManager.play('No');
+//	playSouth();
+//	playNorth();
+//	playEast();
+//	playWest();
+//	playYes();
+//	playNo();
 //	SoundManager.play('Bordel');
 //	SoundManager.play('Wurst');
 });
 
-
-function playSouth()
+function playNorth()
 {
-	i=(Math.random()*100)%8;
-
-	switch (i)
-	{
-		case 1:
-			SoundManager.play('South1');
-			break;	
-	
-		case 2:
-			SoundManager.play('South2');
-			break;	
-
-		case 3:
-			SoundManager.play('South3');
-			break;	
-
-		case 4:
-			SoundManager.play('South4');
-			break;	
-
-		case 5:
-			SoundManager.play('South5');
-			break;	
-	
-
-		case 6:
-			SoundManager.play('South6');
-			break;	
-
-		case 7:
-			SoundManager.play('South7');
-			break;	
-
-	}
+	i=Math.floor((Math.random()*100)%7)+1;
+	SoundManager.play('North'+i);
 
 
 }
+function playSouth()
+{
+	i=Math.floor((Math.random()*100)%7)+1;
+	SoundManager.play('South'+i);
+
+}
+
+function playEast()
+{
+	i=Math.floor((Math.random()*100)%4)+1;
+	SoundManager.play('East'+i);
+
+}
+
+
+function playWest()
+{
+	i=Math.floor((Math.random()*100)%3)+1;
+	SoundManager.play('West'+i);
+
+}
+
+
+function playYes()
+{
+	i=Math.floor((Math.random()*100)%5)+1;
+	SoundManager.play('Yes'+i);
+}
+
+function playNo()
+{
+	i=Math.floor((Math.random()*100)%6)+1;
+	SoundManager.play('No'+i);
+}
+
