@@ -19,6 +19,8 @@
 		<script src="js/kdconf.js"></script>
 		<script src="js/graphics.js"></script>
 		<script src="js/soundManager.js"></script>
+		<script src="js/Labyrintic.js"></script>
+		<script src="js/MainMenu.js"></script>
 		<script src="js/main.js"></script>
 
 		<!--script src="http://localhost:8080/socket.io/socket.io.js"></script-->
@@ -33,19 +35,36 @@
 
 	<body>
 
-		<section id="map-menu">
-			<ul>
+		<section id="main-menu">
+			<header>
+				<h1>Labyrintic</h1>
+			</header>
+
+			<menu id="map-menu">
 				<li data-map="mapTropBien.txt">Map Trop Bien</li>
 				<li data-map="smallArena.txt">Small Arena</li>
 				<li data-map="bigArena.txt">Big Arena</li>
-			</ul>
+			</menu>
+
+			<menu id="player-menu">
+				<li data-pid="1">Player #1</li>
+				<li data-pid="2">Player #2</li>
+				<li data-pid="3">Player #3</li>
+				<li data-pid="4">Player #4</li>
+			</menu>
+
+			<button id="start-game">Start Game</button>
+
+			<footer>Club Engine - 2013 - GameJam #6</footer>
 		</section>
 
-		<canvas id="map" width="736" height="1024">
-			Mets à jour ton navigateur gentil utilisateur !
-		</canvas>
-		<canvas id="playersMap" width="736" height="1024">
-			Mets à jour ton navigateur gentil utilisateur !
-		</canvas>
+		<section id="game">
+			<canvas id="map" width="736" height="1024">
+				Mets à jour ton navigateur gentil utilisateur !
+			</canvas>
+			<canvas id="playersMap" width="736" height="1024">
+				Mets à jour ton navigateur gentil utilisateur !
+			</canvas>
+		</section>
 	</body>
 </html>

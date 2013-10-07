@@ -1,25 +1,63 @@
 body, html {
-	overflow:hidden;
+	font-family: Calibri, Arial;
+	overflow: hidden;
 }
 
-canvas {
+#game {
+	width: 736px;
+	height: 1024px;
+}
+#game canvas {
 	position: absolute;
-	display: none;
+	width: 736px;
+	height: 1024px;
 	top: 0px;
 	bottom: 0px;
 }
 
-#map-menu {
-	width: 200px;
+#main-menu {
+	width: 500px;
+	margin: 20px auto;
+	padding: 20px;
+	background: #EEE;
+}
+#main-menu header {
+	font-size: 2em;
+	letter-spacing: 2px;
+}
+#main-menu footer {
+	clear: both;
+}
+#main-menu menu {
+	float: left;
+	width: 230px;
+	margin: 10px;
+	padding: 0px;
 	background: #DDD;
-	margin: auto;
-	padding: 10px;
+	list-style-type: none;
 }
-#map-menu li {
+#main-menu menu li {
 	cursor: pointer;
-	padding: 5px;
-	border-radius: 5px;
+	padding: 5px 10px;
 }
-#map-menu li:hover {
+#main-menu menu li.active {
+	color: #0088CC;
+	background: #FFF;
+	font-size: 1.1em;
+}
+#main-menu menu li:hover {
+	background: #FFF;
+}
+#main-menu #start-game {
+	clear: both;
+	width: 480px;
+	margin: 20px 10px;
+	padding: 10px;
+	background: #DDD;
+	border: 0px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+#main-menu #start-game:hover {
 	background: #FFF;
 }
