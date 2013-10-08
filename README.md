@@ -5,8 +5,8 @@ Theme and General Information
 -----------------------------
 GameJam #6 - Patate - 6 Octobre 2013
 
-Thème principal : Envers
-Thème secondaire : Audio
+Main theme : Envers(fr)
+Secondary theme : Audio
 
 Server
 ------
