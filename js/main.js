@@ -4,6 +4,8 @@ $(document).ready(function () {
 	Labyrintic.init($('#game'));
 	MainMenu.init($('#main-menu'), Labyrintic);
 	MainMenu.show();
+
+	Network.connect();
 });
 
 

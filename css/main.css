@@ -40,10 +40,14 @@ body, html {
 	cursor: pointer;
 	padding: 5px 10px;
 }
-#main-menu menu li.active {
+#main-menu menu li.active,
+#main-menu menu li.connected {
 	color: #0088CC;
 	background: #FFF;
 	font-size: 1.1em;
+}
+#main-menu menu li.connected {
+	color: #F70;
 }
 #main-menu menu li:hover {
 	background: #FFF;
