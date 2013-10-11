@@ -53,15 +53,18 @@ body, html {
 	background: #FFF;
 }
 #main-menu #start-game {
+	display: none;
 	clear: both;
 	width: 480px;
 	margin: 20px 10px;
 	padding: 10px;
-	background: #DDD;
 	border: 0px;
 	border-radius: 5px;
-	cursor: pointer;
 }
-#main-menu #start-game:hover {
+#main-menu #start-game:enabled {
+	display: block;
+}
+#main-menu #start-game:hover:enabled {
+	cursor: pointer;
 	background: #FFF;
 }

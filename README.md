@@ -3,9 +3,9 @@ GameJam6
 
 Theme and General Information
 -----------------------------
-GameJam #6 - Patate - 6 Octobre 2013
+GameJam #6 - Labyrintic - 6 Octobre 2013
 
-Main theme : Envers(fr)
+Main theme : Envers (fr) / Reverse
 Secondary theme : Audio
 
 Server

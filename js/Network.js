@@ -7,18 +7,6 @@ Network = {
 		});
 	},
 
-	// selectPlayer: function (playerID) {
-	// 	this.socket.emit('player:select', {
-	// 		'id': playerID
-	// 	});
-	// },
-
-	// unselectPlayer: function (playerID) {
-	// 	this.socket.emit('player:unselect', {
-	// 		'id': playerID
-	// 	});
-	// }
-
 	setMap: function (mapName) {
 		this.socket.emit('map:set', {
 			'id': mapName
