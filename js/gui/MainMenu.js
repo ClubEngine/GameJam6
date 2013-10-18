@@ -17,15 +17,14 @@ var MainMenu = {
 		$('#start-game').attr('disabled', 'disabled');
 
 		this.$elem.on('click', '#start-game', function () {
-			if (self.currMap && self.playerID) {
-				self.hide();
-				self.game.show();
-				self.game.start(self.currMap);
-			}
+			self.hide();
+			self.game.show();
+			self.game.start(self.state.map);
 		});
 	},
 
 	setState: function (state) {
+		this.state = state;
 		this.$elem.find('li').removeClass('active connected');
 
 		var map = this.$elem
