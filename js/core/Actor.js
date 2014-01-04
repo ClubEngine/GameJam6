@@ -1,35 +1,56 @@
-// Actor
-// Moveable object
+define(
+	['core/Action'],
+	function (Action) {
+		var Actor = function () {
+			this.position = {
+				x: 0,
+				y: 0
+			};
+			this.spriteId = 1;
+			this.direction = Action.UP;
+			this.controls = null;
 
-var Actor = function () {
-	this.pos = new Vector(0,0);
-	this.spriteId = 0;
-	this.dir = Action.UP;
-}
+			// = actions / seconds
+			this.speed = 60;
+			this._lastActionDate = Date.now();
+		}
 
-Actor.prototype = {
-	getPosition: function () {
-		return this.pos;
-	},
+		Actor.prototype = {
+			update: function () {
+				if (this.controls) {
+					if (Date.now() >= this._lastActionDate + (1000 / this.speed)) {
+						this._lastActionDate = Date.now();
+						if (this.controls.action !== Action.IDLE) {
+							if (this._tryMove(this.controls.getDirection())) {
+							// @TODO: do something ?
+						    }
+					    } 
+					}
+				}
+			},
 
-	setPosition: function (x,y) {
-		this.pos.x = x;
-		this.pos.y = y;
-	},
-	
-	getDirection: function (dir) {
-		return this.dir;
-	},
+			_tryMove: function (controlsDirection) {
+				var speed = {
+					x: 0.25,
+					y: 0.25
+				}
 
-	setDirection: function (dir) {
-		this.dir = dir;
-	},
+				var newPosition = {
+					x: this.position.x + controlsDirection.x * speed.x,
+					y: this.position.y + controlsDirection.y * speed.y
+				};
 
-	getSpriteId: function () {
-		return this.spriteId;
-	},
-	
-	setSpriteId: function(id) {
-		this.spriteId = id;
+				this.position = newPosition;
+
+				// if (!this.labyrinth.isObstacle(newPosition.x, newPosition.y)) {
+				// 	this.position = newPosition;
+				// 	return true;
+				// }
+
+				return false;
+			}
+		}
+
+		return Actor;
 	}
-}
+);
